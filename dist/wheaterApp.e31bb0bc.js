@@ -1607,6 +1607,11 @@ module.exports.parse = parse;
 },{"fs":"node_modules/parcel-bundler/src/builtins/_empty.js","path":"node_modules/path-browserify/index.js","process":"node_modules/process/browser.js"}],"scripts/forecast.js":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getCity = exports.getCityConditions = void 0;
+
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
 var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
@@ -1615,7 +1620,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 require("dotenv").config();
 
-var API_KEY = "qoF7xrwTsTwaLGIcJdKYEMivxcB5FL0w";
+var API_KEY = "B5bqFxCnjUDZDYcUBpuJpdEWQgJGCjAe";
 
 var getCityConditions =
 /*#__PURE__*/
@@ -1638,7 +1643,7 @@ function () {
 
           case 5:
             data = _context.sent;
-            console.log(data);
+            return _context.abrupt("return", data[0]);
 
           case 7:
           case "end":
@@ -1652,6 +1657,8 @@ function () {
     return _ref.apply(this, arguments);
   };
 }();
+
+exports.getCityConditions = getCityConditions;
 
 var getCity =
 /*#__PURE__*/
@@ -1691,14 +1698,130 @@ function () {
   };
 }();
 
-getCity("london").then(function (data) {
-  return getCityConditions(data.Key);
-}).catch(function (err) {
-  return console.log(err);
-});
-},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","dotenv":"node_modules/dotenv/lib/main.js"}],"scripts/app.js":[function(require,module,exports) {
+exports.getCity = getCity;
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","dotenv":"node_modules/dotenv/lib/main.js"}],"scripts/UIupdates.js":[function(require,module,exports) {
+"use strict";
 
-},{}],"index.js":[function(require,module,exports) {
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateUIImg = exports.updateUIIcon = exports.updateUIDetails = void 0;
+
+var updateUIDetails = function updateUIDetails(cityName, temperature, weatherDescription) {
+  var details = document.querySelector(".details");
+  var html = " \n      <h5 class=\"my-3\">".concat(cityName, "</h5>\n      <div class=\"my-3\">Weather: ").concat(weatherDescription, "</div>\n      <div class=\"display-4 my-4\">\n        <span>").concat(temperature, "</span>\n        <span>&deg;C</span>\n      </div>\n    </div>\n    ");
+  details.innerHTML = html;
+};
+
+exports.updateUIDetails = updateUIDetails;
+
+var updateUIImg = function updateUIImg(timeSrc) {
+  var time = document.querySelector(".time");
+  time.src = timeSrc;
+};
+
+exports.updateUIImg = updateUIImg;
+
+var updateUIIcon = function updateUIIcon(importedIcon) {
+  var icon = document.querySelector(".icon img");
+  console.log({
+    icon: icon,
+    importedIcon: importedIcon
+  });
+  icon.src = importedIcon;
+};
+
+exports.updateUIIcon = updateUIIcon;
+},{}],"dist/img/day.svg":[function(require,module,exports) {
+module.exports = "/day.182f7589.svg";
+},{}],"dist/img/night.svg":[function(require,module,exports) {
+module.exports = "/night.fae42be4.svg";
+},{}],"scripts/app.js":[function(require,module,exports) {
+"use strict";
+
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _forecast = require("./forecast");
+
+var _UIupdates = require("./UIupdates");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var daySVG = require("../dist/img/day.svg");
+
+var nightSVG = require("../dist/img/night.svg");
+
+var cityForm = document.querySelector("form");
+var card = document.querySelector(".card");
+
+var updateUI = function updateUI(_ref) {
+  var EnglishName = _ref.cityDetails.EnglishName,
+      _ref$cityWeather = _ref.cityWeather,
+      Temperature = _ref$cityWeather.Temperature,
+      WeatherText = _ref$cityWeather.WeatherText,
+      IsDayTime = _ref$cityWeather.IsDayTime,
+      WeatherIcon = _ref$cityWeather.WeatherIcon;
+  var timeSrc = IsDayTime ? daySVG : nightSVG;
+  var tempInCelsius = Temperature.Metric.Value;
+  var iconsSrc = "../img/icons/".concat(WeatherIcon, ".svg");
+  (0, _UIupdates.updateUIDetails)(EnglishName, tempInCelsius, WeatherText);
+  (0, _UIupdates.updateUIImg)(timeSrc);
+  (0, _UIupdates.updateUIIcon)(iconsSrc);
+  card.classList.remove("d-none");
+};
+
+var updateCity =
+/*#__PURE__*/
+function () {
+  var _ref2 = (0, _asyncToGenerator2.default)(
+  /*#__PURE__*/
+  _regenerator.default.mark(function _callee(city) {
+    var cityDetails, cityWeather;
+    return _regenerator.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return (0, _forecast.getCity)(city);
+
+          case 2:
+            cityDetails = _context.sent;
+            _context.next = 5;
+            return (0, _forecast.getCityConditions)(cityDetails.Key);
+
+          case 5:
+            cityWeather = _context.sent;
+            return _context.abrupt("return", {
+              cityDetails: cityDetails,
+              cityWeather: cityWeather
+            });
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function updateCity(_x) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+cityForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  var city = cityForm.city.value.trim();
+  updateCity(city).then(function (data) {
+    updateUI(data);
+  }).catch(function (err) {
+    return console.log(err);
+  });
+  cityForm.reset();
+});
+},{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","./forecast":"scripts/forecast.js","./UIupdates":"scripts/UIupdates.js","../dist/img/day.svg":"dist/img/day.svg","../dist/img/night.svg":"dist/img/night.svg"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 require("./scss/main.scss");
@@ -1734,7 +1857,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58788" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52583" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
