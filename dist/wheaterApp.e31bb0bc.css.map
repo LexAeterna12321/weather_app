@@ -1,0 +1,1 @@
+{"version":3,"sources":["scss\\main.scss"],"names":[],"mappings":"AAAA;EACI;EACA;EACA;;;AAIJ;EACI","file":"wheaterApp.e31bb0bc.css","sourceRoot":"..","sourcesContent":["body {\r\n    background: #343a40;\r\n    letter-spacing: 0.2em;\r\n    font-size: 0.8em;\r\n\r\n}\r\n\r\n.container {\r\n    max-width: 400px;\r\n}"]}

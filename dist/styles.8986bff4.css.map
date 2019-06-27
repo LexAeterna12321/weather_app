@@ -1,1 +1,1 @@
-{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA","file":"styles.8986bff4.css","sourceRoot":"..","sourcesContent":[""]}
+{"version":3,"sources":["styles.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"styles.8986bff4.css","sourceRoot":"..","sourcesContent":["body {\r\n    background: #eeedec;\r\n    letter-spacing: 0.2em;\r\n    font-size: 0.8em;\r\n}\r\n\r\n.container {\r\n    max-width: 400px;\r\n}"]}
