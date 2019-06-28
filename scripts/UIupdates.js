@@ -18,7 +18,6 @@ const updateUIImg = timeSrc => {
 };
 const updateUIIcon = importedIcon => {
   const icon = document.querySelector(".icon img");
-  console.log({ icon, importedIcon });
   icon.src = importedIcon;
 };
 

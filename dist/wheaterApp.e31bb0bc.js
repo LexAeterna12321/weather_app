@@ -184,7 +184,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"scss/main.scss":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"style.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -1628,24 +1628,25 @@ function () {
   var _ref = (0, _asyncToGenerator2.default)(
   /*#__PURE__*/
   _regenerator.default.mark(function _callee(cityKey) {
-    var res, data;
+    var url, res, data;
     return _regenerator.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _context.next = 2;
-            return fetch("http://dataservice.accuweather.com/currentconditions/v1/".concat(cityKey, "?apikey=").concat(API_KEY));
+            url = "http://dataservice.accuweather.com/currentconditions/v1/".concat(cityKey, "?apikey=").concat(API_KEY);
+            _context.next = 3;
+            return fetch(url);
 
-          case 2:
+          case 3:
             res = _context.sent;
-            _context.next = 5;
+            _context.next = 6;
             return res.json();
 
-          case 5:
+          case 6:
             data = _context.sent;
             return _context.abrupt("return", data[0]);
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -1666,26 +1667,25 @@ function () {
   var _ref2 = (0, _asyncToGenerator2.default)(
   /*#__PURE__*/
   _regenerator.default.mark(function _callee2(city) {
-    var base, query, res, data;
+    var url, res, data;
     return _regenerator.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            base = "http://dataservice.accuweather.com/locations/v1/cities/search";
-            query = "?apikey=".concat(API_KEY, "&q=").concat(city);
-            _context2.next = 4;
-            return fetch("".concat(base).concat(query));
+            url = "http://dataservice.accuweather.com/locations/v1/cities/search?apikey=".concat(API_KEY, "&q=").concat(city);
+            _context2.next = 3;
+            return fetch(url);
 
-          case 4:
+          case 3:
             res = _context2.sent;
-            _context2.next = 7;
+            _context2.next = 6;
             return res.json();
 
-          case 7:
+          case 6:
             data = _context2.sent;
             return _context2.abrupt("return", data[0]);
 
-          case 9:
+          case 8:
           case "end":
             return _context2.stop();
         }
@@ -1724,10 +1724,6 @@ exports.updateUIImg = updateUIImg;
 
 var updateUIIcon = function updateUIIcon(importedIcon) {
   var icon = document.querySelector(".icon img");
-  console.log({
-    icon: icon,
-    importedIcon: importedIcon
-  });
   icon.src = importedIcon;
 };
 
@@ -1824,12 +1820,12 @@ cityForm.addEventListener("submit", function (e) {
 },{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","./forecast":"scripts/forecast.js","./UIupdates":"scripts/UIupdates.js","../dist/img/day.svg":"dist/img/day.svg","../dist/img/night.svg":"dist/img/night.svg"}],"index.js":[function(require,module,exports) {
 "use strict";
 
-require("./scss/main.scss");
+require("./style.css");
 
 require("./scripts/forecast");
 
 require("./scripts/app");
-},{"./scss/main.scss":"scss/main.scss","./scripts/forecast":"scripts/forecast.js","./scripts/app":"scripts/app.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./style.css":"style.css","./scripts/forecast":"scripts/forecast.js","./scripts/app":"scripts/app.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -1857,7 +1853,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52583" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63220" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
