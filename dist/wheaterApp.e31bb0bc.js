@@ -1620,7 +1620,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 require("dotenv").config();
 
-var API_KEY = "B5bqFxCnjUDZDYcUBpuJpdEWQgJGCjAe";
+var API_KEY = "wbVT8EdGq3ab1nKET1Ijp5W4WOrzoiPM";
 
 var getCityConditions =
 /*#__PURE__*/
@@ -1807,16 +1807,31 @@ function () {
   };
 }();
 
-cityForm.addEventListener("submit", function (e) {
+var requestWeather = function requestWeather(e) {
   e.preventDefault();
   var city = cityForm.city.value.trim();
+  localStorage.setItem("city", city);
   updateCity(city).then(function (data) {
     updateUI(data);
   }).catch(function (err) {
     return console.log(err);
   });
   cityForm.reset();
-});
+};
+
+var requestLastSearchedWeather = function requestLastSearchedWeather() {
+  if (localStorage.city) {
+    var city = localStorage.getItem("city");
+    updateCity(city).then(function (data) {
+      updateUI(data);
+    }).catch(function (err) {
+      return console.log(err);
+    });
+  }
+};
+
+window.addEventListener("load", requestLastSearchedWeather);
+cityForm.addEventListener("submit", requestWeather);
 },{"@babel/runtime/regenerator":"node_modules/@babel/runtime/regenerator/index.js","@babel/runtime/helpers/asyncToGenerator":"node_modules/@babel/runtime/helpers/asyncToGenerator.js","./forecast":"scripts/forecast.js","./UIupdates":"scripts/UIupdates.js","../dist/img/day.svg":"dist/img/day.svg","../dist/img/night.svg":"dist/img/night.svg"}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -1853,7 +1868,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63220" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51069" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
